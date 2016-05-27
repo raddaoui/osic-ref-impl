@@ -1,4 +1,4 @@
-# VLAN TAGS
+ VLAN TAGS
 # 830 - MANAGEMENT_NET - 172.22.100.0/22
 # 831 - STORAGE_NET    - 172.22.104.0/22
 # 832 - OVERLAY_NET    - 172.22.108.0/22
@@ -72,7 +72,7 @@ iface br-vxlan inet static
     bridge_stp off
     bridge_waitport 10
     bridge_fd 0
-    bridge_ports bond1.832
+    bridge_ports bond0.832
     address 172.22.108.{{ ansible_ssh_host.split('.')[-1] }}
     netmask 255.255.252.0
     offload-sg off
