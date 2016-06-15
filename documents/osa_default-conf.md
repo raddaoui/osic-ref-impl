@@ -46,7 +46,7 @@ A snippet is shown below:
 | section | parameter     |                  parameter meaning                   | OS default conf | Osa configurations                     |
 |---------|---------------|------------------------------------------------------|-----------------|----------------------------------------|
 | DEFAULT | rpc_backend   |                  rpc driver to use                   |      rabbit     | glance.openstack.common.rpc.impl_kombu |
-| DEFAULT | scrub_time    | time in seconds  to delay before performing a delete |         0       | 43200                                  |
+| DEFAULT | scrub_time    | time in seconds  to delay before performing a delete |          0      |                 43200                  |
 
 
 #### nova (nova.conf)
