@@ -8,7 +8,7 @@ This document presents an inventory of different configurations adopted by OSA u
 
 ### All projects
 
-some of the configurations encountered are common to all projects and are found in *<project>*.conf for each project:
+some of the configurations encountered are common to all projects and are found in `project`.conf for each project:
 
 * In OSA, all projects that relies on keystoneauth for authentication uses caching and encryption of tokens to avoid cache poisoning.
 A snippet is shown below:
@@ -45,8 +45,8 @@ A snippet is shown below:
 
 | section | parameter     | parameter meaning                                    | OS default conf | Osa configurations                     |
 |---------|---------------|------------------------------------------------------|-----------------|----------------------------------------|
-| DEFAULT | rpc_backend   | rpc driver to use                                    | rabbit          | glance.openstack.common.rpc.impl_kombu |
-| DEFAULT | scrub_time    | time in seconds  to delay before performing a delete | 0               | 43200                                  |
+| DEFAULT | rpc_backend   | rpc driver to use                                    |     rabbit      | glance.openstack.common.rpc.impl_kombu |
+| DEFAULT | scrub_time    | time in seconds  to delay before performing a delete |       0         | 43200                                  |
 
 
 #### nova (nova.conf)
