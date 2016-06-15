@@ -56,9 +56,9 @@ A snippet is shown below:
     token_cache_time = 300
     revocation_cache_time = 60 (default 10)
 
-    #if your memcached server is shared, use these settings to avoid cache poisoning
+    # if your memcached server is shared, use these settings to avoid cache poisoning
     memcache_security_strategy = ENCRYPT
-    memcache_secret_key = **<memcached_encryption_key>**
+    memcache_secret_key = \*\*<memcached_encryption_key>\*\*
 ```
 
 * While number of workers to be created to service requests in different OpenStack projects is defaulted to number of CPUs, OSA uses half the number of available CPUs for that. A list of some workers parameters and where to find them is given below:
