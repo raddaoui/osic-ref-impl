@@ -58,16 +58,16 @@ A snippet is shown below:
 
     # if your memcached server is shared, use these settings to avoid cache poisoning
     memcache_security_strategy = ENCRYPT
-    memcache_secret_key = \*\*<memcached_encryption_key>\*\*
+    memcache_secret_key = <memcached_encryption_key>
 ```
 
 * While number of workers to be created to service requests in different OpenStack projects is defaulted to number of CPUs, OSA uses half the number of available CPUs for that. A list of some workers parameters and where to find them is given below:
 
-    workers in (glance-api.conf, glance-registry.conf, nova.conf)  
-    osapi_volume_workers in (cinder.conf)  
-    osapi_compute_workers in (nova.conf)  
-    metadata_workers in (nova.conf)  
-    num_engine_workers in (heat.conf)  
+    workers in **(glance-api.conf, glance-registry.conf, nova.conf)**  
+    osapi_volume_workers in **(cinder.conf)**  
+    osapi_compute_workers in **(nova.conf)**  
+    metadata_workers in **(nova.conf)**  
+    num_engine_workers in **(heat.conf)**  
 
 
 
