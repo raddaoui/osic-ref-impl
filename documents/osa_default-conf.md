@@ -8,7 +8,7 @@ This document presents an inventory of different configurations adopted by OSA u
 
 ### All projects
 
-some of the configurations encountered are common to all projects and are found in *<<project>>*.conf for each project:
+some of the configurations encountered are common to all projects and are found in *<project>*.conf for each project:
 
 * In OSA, all projects that relies on keystoneauth for authentication uses caching and encryption of tokens to avoid cache poisoning.
 A snippet is shown below:
@@ -24,10 +24,10 @@ A snippet is shown below:
 
 * While number of workers to be created to service requests in different OpenStack projects is defaulted to number of CPUs, OSA uses half the number of available CPUs for that. A list of some workers parameters and where to find them is given below:
 
-    workers in **(glance-api.conf, glance-registry.conf, nova.conf)**
-    osapi_volume_workers in **(cinder.conf)**
-    osapi_compute_workers in **(nova.conf)**
-    metadata_workers in **(nova.conf)**
+    workers in **(glance-api.conf, glance-registry.conf, nova.conf)**  
+    osapi_volume_workers in **(cinder.conf)**  
+    osapi_compute_workers in **(nova.conf)**  
+    metadata_workers in **(nova.conf)**  
     num_engine_workers in **(heat.conf)**
 
 
