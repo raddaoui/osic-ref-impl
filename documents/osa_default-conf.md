@@ -53,8 +53,9 @@ some of the configurations encountered are common to all projects:
 A snippet is shown below:
 
     [keystone_authtoken]
-    token_cache_time = 300
-    revocation_cache_time = 60 (default 10)  
+
+token_cache_time = 300
+revocation_cache_time = 60 (default 10)  
 
 \#if your memcached server is shared, use these settings to avoid cache poisoning
 memcache_security_strategy = ENCRYPT
