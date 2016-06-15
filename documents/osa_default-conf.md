@@ -43,10 +43,10 @@ A snippet is shown below:
 
 #### glance (glance-api.conf)
 
-| section | parameter     | parameter meaning                                    | OS default conf | Osa configurations                     |
+| section | parameter     |                  parameter meaning                   | OS default conf | Osa configurations                     |
 |---------|---------------|------------------------------------------------------|-----------------|----------------------------------------|
-| DEFAULT | rpc_backend   | rpc driver to use                                    |     rabbit      | glance.openstack.common.rpc.impl_kombu |
-| DEFAULT | scrub_time    | time in seconds  to delay before performing a delete |       0         | 43200                                  |
+| DEFAULT | rpc_backend   |                  rpc driver to use                   |      rabbit     | glance.openstack.common.rpc.impl_kombu |
+| DEFAULT | scrub_time    | time in seconds  to delay before performing a delete |         0       | 43200                                  |
 
 
 #### nova (nova.conf)
@@ -67,7 +67,7 @@ A snippet is shown below:
 
 #### heat (heat.conf)
 
-| section | parameter     | parameter meaning                                    | OS default conf | Osa configurations                   |
+| section |   parameter   |                    parameter meaning                 | OS default conf | Osa configurations                   |
 |---------|---------------|------------------------------------------------------|-----------------|--------------------------------------|
-| DEFAULT | rpc_backend   | rpc driver to use                                    | rabbit          | heat.openstack.common.rpc.impl_kombu |
+| DEFAULT |  rpc_backend  |                     rpc driver to use                | rabbit          | heat.openstack.common.rpc.impl_kombu |
 
