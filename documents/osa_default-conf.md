@@ -49,24 +49,24 @@ This document presents an inventory of different configurations adopted by OSA u
 
 some of the configurations encountered are common to all projects:
 
-- In OSA, all projects that relies on keystoneauth for authentication uses cahching and encryption of tokens to avoid cache poisoning.
-A snippet is shown below:
+* In OSA, all projects that relies on keystoneauth for authentication uses cahching and encryption of tokens to avoid cache poisoning.
+A snippet is shown below:  
 
-    [keystone_authtoken]
-    token_cache_time = 300
-    revocation_cache_time = 60 (default 10)
+     [keystone_authtoken]
+     token_cache_time = 300  
+     revocation_cache_time = 60 (default 10)  
 
-    # if your memcached server is shared, use these settings to avoid cache poisoning
-    memcache_security_strategy = ENCRYPT
-    memcache_secret_key = `<memcached_encryption_key>`
+     \# if your memcached server is shared, use these settings to avoid cache poisoning  
+     memcache_security_strategy = ENCRYPT  
+     memcache_secret_key = `<memcached_encryption_key>`  
 
 
-- While number of workers to be created to service requests in different OpenStack projects is defaulted to number of CPUs, OSA uses half the number of available CPUs for that. A list of some workers parameters and where to find them is given below:
+* While number of workers to be created to service requests in different OpenStack projects is defaulted to number of CPUs, OSA uses half the number of available CPUs for that. A list of some workers parameters and where to find them is given below:
 
-    workers (glance-api.conf, glance-registry.conf, nova.conf[conductor])
-    osapi_volume_workers (cinder.conf)
-    osapi_compute_workers (nova.conf)
-    metadata_workers (nova.conf)
-    num_engine_workers (heat.conf)
+    workers (glance-api.conf, glance-registry.conf, nova.conf[conductor])  
+    osapi_volume_workers (cinder.conf)  
+    osapi_compute_workers (nova.conf)  
+    metadata_workers (nova.conf)  
+    num_engine_workers (heat.conf)  
 
 
