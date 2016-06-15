@@ -4,7 +4,33 @@ OpenStack-ansible VS OpenStack_default configurations (liberty)
 Intro
 ------
 
-This document presents an inventory of different configurations adopted by OSA unlike defaults which may effect OpenStack performance. We start with projects-specific settings and we finish with those common to all projects.
+This document presents an inventory of different configurations adopted by OSA unlike defaults which may effect OpenStack performance. We start with configurations common to all projects and we finish with those which are projects-specific settings.
+
+### All projects
+
+some of the configurations encountered are common to all projects and are found in *<<project>>*.conf for each project:
+
+* In OSA, all projects that relies on keystoneauth for authentication uses caching and encryption of tokens to avoid cache poisoning.
+A snippet is shown below:
+```
+    [keystone_authtoken]
+    token_cache_time = 300
+    revocation_cache_time = 60 (default 10)
+
+    # if your memcached server is shared, use these settings to avoid cache poisoning
+    memcache_security_strategy = ENCRYPT
+    memcache_secret_key = <memcached_encryption_key>
+```
+
+* While number of workers to be created to service requests in different OpenStack projects is defaulted to number of CPUs, OSA uses half the number of available CPUs for that. A list of some workers parameters and where to find them is given below:
+
+    workers in **(glance-api.conf, glance-registry.conf, nova.conf)**
+    osapi_volume_workers in **(cinder.conf)**
+    osapi_compute_workers in **(nova.conf)**
+    metadata_workers in **(nova.conf)**
+    num_engine_workers in **(heat.conf)**
+
+
 
 #### Keystone (Keystone.conf)
 
@@ -44,30 +70,4 @@ This document presents an inventory of different configurations adopted by OSA u
 | section | parameter     | parameter meaning                                    | OS default conf | Osa configurations                   |
 |---------|---------------|------------------------------------------------------|-----------------|--------------------------------------|
 | DEFAULT | rpc_backend   | rpc driver to use                                    | rabbit          | heat.openstack.common.rpc.impl_kombu |
-
-### All projects
-
-some of the configurations encountered are common to all projects:
-
-* In OSA, all projects that relies on keystoneauth for authentication uses caching and encryption of tokens to avoid cache poisoning.
-A snippet is shown below:
-```
-    [keystone_authtoken]
-    token_cache_time = 300
-    revocation_cache_time = 60 (default 10)
-
-    # if your memcached server is shared, use these settings to avoid cache poisoning
-    memcache_security_strategy = ENCRYPT
-    memcache_secret_key = <memcached_encryption_key>
-```
-
-* While number of workers to be created to service requests in different OpenStack projects is defaulted to number of CPUs, OSA uses half the number of available CPUs for that. A list of some workers parameters and where to find them is given below:
-
-    *workers* in **(glance-api.conf, glance-registry.conf, nova.conf)**  
-    *osapi_volume_workers* in **(cinder.conf)**  
-    *osapi_compute_workers* in **(nova.conf)**  
-    *metadata_workers* in **(nova.conf)**  
-    *num_engine_workers* in **(heat.conf)**  
-
-
 
