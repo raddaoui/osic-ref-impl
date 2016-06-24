@@ -255,6 +255,7 @@ An example for openstack-ansible or RPC-O installations:
     744827-object03.example.com,A0:36:9F:82:8C:E3,10.240.0.60,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-swift
 
 To do just that, the following command will loop through each iLO IP address in __ilo.csv__ to obtain the MAC address of the network interface configured to PXE boot and setup rest of information as well as shown above:
+
 __NOTE:__ make sure to Set COUNT to the first usable address after deployment host and container (ex. If you use .2 and .3 for deployment and container, start with .4 controller1).
 
     COUNT=23
