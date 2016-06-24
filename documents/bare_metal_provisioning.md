@@ -225,7 +225,37 @@ For example:
 
 I recommend removing the deployment host you manually provisioned from this CSV so you do not accidentally reboot the host you are working from.
 
-Once the CSV file is created, you can loop through each iLO to obtain the MAC address of the network interface configured to PXE boot with the following command:
+Once this information is collected, it will be used to create another CSV file that will be the input for many different steps in the build process.
+
+### Create Input CSV
+
+Now, we will create a CSV named __input.csv__ in the following format.
+
+    hostname,mac-address,host-ip,host-netmask,host-gateway,dns,pxe-interface,cobbler-profile
+
+If this will be an openstack-ansible or RPC-O installation, it is recommended to order the rows in the CSV file in the following order, otherwise order the rows however you wish:
+
+1. Controller nodes
+2. Logging nodes
+3. Compute nodes
+4. Cinder nodes
+5. Swift nodes
+
+An example for openstack-ansible or RPC-O installations:
+
+    744800-infra01.example.com,A0:36:9F:7F:70:C0,10.240.0.51,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-generic
+    744819-infra02.example.com,A0:36:9F:7F:6A:C8,10.240.0.52,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-generic
+    744820-infra03.example.com,A0:36:9F:82:8C:E8,10.240.0.53,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-generic
+    744821-logging01.example.com,A0:36:9F:82:8C:E9,10.240.0.54,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-generic
+    744822-compute01.example.com,A0:36:9F:82:8C:EA,10.240.0.55,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-generic
+    744823-compute02.example.com,A0:36:9F:82:8C:EB,10.240.0.56,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-generic
+    744824-cinder01.example.com,A0:36:9F:82:8C:EC,10.240.0.57,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-cinder
+    744825-object01.example.com,A0:36:9F:7F:70:C1,10.240.0.58,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-swift
+    744826-object02.example.com,A0:36:9F:7F:6A:C2,10.240.0.59,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-swift
+    744827-object03.example.com,A0:36:9F:82:8C:E3,10.240.0.60,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-swift
+
+To do just that, the following command will loop through each iLO IP address in __ilo.csv__ to obtain the MAC address of the network interface configured to PXE boot and setup rest of information as well as shown above:
+__NOTE:__ make sure to Set COUNT to the first usable address after deployment host and container (ex. If you use .2 and .3 for deployment and container, start with .4 controller1).
 
     COUNT=23
     for i in $(cat ilo.csv)
@@ -252,34 +282,7 @@ Once the CSV file is created, you can loop through each iLO to obtain the MAC ad
         (( COUNT++ ))
     done
 
-Once this information is collected, it will be used to create another CSV file that will be the input for many different steps in the build process.
 
-### Create Input CSV
-
-Create a CSV named __input.csv__ in the following format. Use whatever text editor foo you have to create the CSV file.
-
-    hostname,mac-address,host-ip,host-netmask,host-gateway,dns,pxe-interface,cobbler-profile
-
-If this will be an openstack-ansible or RPC-O installation, it is recommended to order the rows in the CSV file in the following order, otherwise order the rows however you wish:
-
-1. Controller nodes
-2. Logging nodes
-3. Compute nodes
-4. Cinder nodes
-5. Swift nodes
-
-An example for openstack-ansible or RPC-O installations:
-
-    744800-infra01.example.com,A0:36:9F:7F:70:C0,10.240.0.51,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-generic
-    744819-infra02.example.com,A0:36:9F:7F:6A:C8,10.240.0.52,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-generic
-    744820-infra03.example.com,A0:36:9F:82:8C:E8,10.240.0.53,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-generic
-    744821-logging01.example.com,A0:36:9F:82:8C:E9,10.240.0.54,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-generic
-    744822-compute01.example.com,A0:36:9F:82:8C:EA,10.240.0.55,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-generic
-    744823-compute02.example.com,A0:36:9F:82:8C:EB,10.240.0.56,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-generic
-    744824-cinder01.example.com,A0:36:9F:82:8C:EC,10.240.0.57,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-cinder
-    744825-object01.example.com,A0:36:9F:7F:70:C1,10.240.0.58,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-swift
-    744826-object02.example.com,A0:36:9F:7F:6A:C2,10.240.0.59,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-swift
-    744827-object03.example.com,A0:36:9F:82:8C:E3,10.240.0.60,255.255.252.0,10.240.0.1,8.8.8.8,p1p1,ubuntu-14.04.3-server-unattended-osic-swift
 
 ### Assigning a Cobbler Profile
 
