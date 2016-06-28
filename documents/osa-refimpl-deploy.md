@@ -106,7 +106,7 @@ Then, list all disks under disks list in ./vars/swift-disks.yml
 
 Format disks for Swift to the XFS file sytem and mount them to /srv/node on each host by running the following playbook:
 
-    ansible-playook -i inventory/static-inventory.yml swift-disks-prepare.yml
+    ansible-playbook -i inventory/static-inventory.yml swift-disks-prepare.yml
 
 
 Configuring OpenStack environment
