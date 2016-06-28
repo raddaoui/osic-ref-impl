@@ -209,9 +209,9 @@ For example:
     729427-controller01,10.15.243.158,controller
     729426-controller02,10.15.243.157,controller
     729425-controller03,10.15.243.156,controller
-    729424-network01,10.15.243.155,network
-    729423-network02,10.15.243.154,network
-    729422-logging01,10.15.243.153,logging
+    729424-logging01,10.15.243.155,logging
+    729423-logging02,10.15.243.154,logging
+    729422-logging03,10.15.243.153,logging
     729421-compute01,10.15.243.152,compute
     729420-compute02,10.15.243.151,compute
     729419-compute03,10.15.243.150,compute
@@ -220,9 +220,9 @@ For example:
     729416-compute06,10.15.243.147,compute
     729415-compute07,10.15.243.146,compute
     729414-compute08,10.15.243.145,compute
-    729413-compute09,10.15.243.144,compute
-    729412-cinder01,10.15.243.143,cinder
-    729411-cinder02,10.15.243.142,cinder
+    729413-cinder01,10.15.243.144,cinder
+    729412-cinder02,10.15.243.143,cinder
+    729411-cinder03,10.15.243.142,cinder
     729410-swift01,10.15.243.141,swift
     729409-swift02,10.15.243.140,swift
     729408-swift03,10.15.243.139,swift

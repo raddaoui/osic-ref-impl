@@ -69,6 +69,11 @@ copy the hosts inventory from the osic-prep container to /opt/osic-ref-impl/play
 
     cp /var/lib/lxc/osic-prep/rootfs/root/osic-prep-ansible/hosts /opt/osic-ref-impl/playbooks/inventory/inventory/static-inventory.yml
 
+Make sure you include the deployment host in __static-inventory.yml__ as follows:
+
+    [deploy]
+    729429-deploy01 ansible_ssh_host=172.22.0.21
+
 Copy all of the servers SSH fingerprints from the LXC container osic-prep known_hosts file.
 
     cp /var/lib/lxc/osic-prep/rootfs/root/.ssh/known_hosts /root/.ssh/known_hosts
@@ -125,7 +130,9 @@ Change to /etc/openstack_deploy:
 
     cd /etc/openstack_deploy
 
-Check conf.d directory and edit files there to configure target hosts to match your environment (compute, log_hosts, storage_hosts, network_hosts...).
+Check openstack_user_config.yml file and edit __cidr_networks__, __used_ips__, and __internal_lb_vip_address__ and __external_lb_vip_address__ according to your chosen network configurations.
+
+Check __conf.d__ directory and edit files there to configure target hosts to match your environment (compute, log_hosts, storage_hosts, network_hosts...).
 
 Configure service credentials by filling the user_secrets.yml manually or through OSA provided script:
 
