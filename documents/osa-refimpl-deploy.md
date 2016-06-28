@@ -69,32 +69,29 @@ copy the hosts inventory from the osic-prep container to /opt/osic-ref-impl/play
 
     cp /var/lib/lxc/osic-prep/rootfs/root/osic-prep-ansible/hosts /opt/osic-ref-impl/playbooks/inventory/inventory/static-inventory.yml
 
-#### configure Network for deployment host
-
-Move to the playbooks directory from the osic-ref-impl root directory:
-
-    cd /opt/osic-ref-impl/playbooks
-
-Configure networking on the deployment host to have an interface on the same network allocated for container management. This interface will be used to connect and manage all target hosts and their hosted containers that will be created later by OSA.
-
-    ansible-playbook -i inventory/static-inventory.yml create-network-interfaces.yml -e "target=deploy"
 
 Prepare target hosts
 -----------------------
 
 #### Configuring the operating system
 
+Move to the playbooks directory from the osic-ref-impl root directory:
+
+    cd /opt/osic-ref-impl/playbooks
+
 Install software packages and load necessary dynamic kernel modules for networking:
 
     ansible-playbook -i inventory/static-inventory.yml bootstrap.yml
 
-#### configure Network for target hosts
+#### configure Network for target hosts (deployment included)
 
 Setup bonded interfaces and add bridges to target hosts to separate different traffics in vlans.
 
+Deployment host should have an interface on the same network allocated for container management. This interface will be used to connect and manage all target hosts and their hosted containers that will be created later by OSA.
+
     ansible-playbook -i inventory/static-inventory.yml create-network-interfaces.yml -e "target=all"
 
-This command will reboot servers once it finish configurations!
+This command will reboot servers once it finishes configurations!
 
 #### Setting up storage devices.
 
