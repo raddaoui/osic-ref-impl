@@ -51,7 +51,7 @@ In the deployment host, clone the osic-ref-impl repo into /opt/osic-ref-impl
 
 Also, clone OSA repository into /opt/openstack_ansible
 
-  git clone -b TAG https://github.com/openstack/openstack-ansible.git /opt/openstack-ansible
+  git clone -b stable/mitaka https://github.com/openstack/openstack-ansible.git /opt/openstack-ansible
 
 Change to /opt/openstack-ansible directory
 
@@ -69,6 +69,9 @@ copy the hosts inventory from the osic-prep container to /opt/osic-ref-impl/play
 
     cp /var/lib/lxc/osic-prep/rootfs/root/osic-prep-ansible/hosts /opt/osic-ref-impl/playbooks/inventory/inventory/static-inventory.yml
 
+Copy all of the servers SSH fingerprints from the LXC container osic-prep known_hosts file.
+
+    cp /var/lib/lxc/osic-prep/rootfs/root/.ssh/known_hosts /root/.ssh/known_hosts
 
 Prepare target hosts
 -----------------------
@@ -82,16 +85,6 @@ Move to the playbooks directory from the osic-ref-impl root directory:
 Install software packages and load necessary dynamic kernel modules for networking:
 
     ansible-playbook -i inventory/static-inventory.yml bootstrap.yml
-
-#### configure Network for target hosts (deployment included)
-
-Setup bonded interfaces and add bridges to target hosts to separate different traffics in vlans.
-
-Deployment host should have an interface on the same network allocated for container management. This interface will be used to connect and manage all target hosts and their hosted containers that will be created later by OSA.
-
-    ansible-playbook -i inventory/static-inventory.yml create-network-interfaces.yml -e "target=all"
-
-This command will reboot servers once it finishes configurations!
 
 #### Setting up storage devices.
 
@@ -109,12 +102,23 @@ Format disks for Swift to the XFS file sytem and mount them to /srv/node on each
     ansible-playbook -i inventory/static-inventory.yml swift-disks-prepare.yml
 
 
+#### configure Network for target hosts (deployment included)
+
+Setup bonded interfaces and add bridges to target hosts to separate different traffics in vlans.
+
+Deployment host should have an interface on the same network allocated for container management. This interface will be used to connect and manage all target hosts and their hosted containers that will be created later by OSA.
+
+    ansible-playbook -i inventory/static-inventory.yml create-network-interfaces.yml -e "target=all"
+
+This command will reboot servers once it finishes configurations!
+
+
 Configuring OpenStack environment
 ----------------------------------
 
 Copy OSA configuration files for our environment to /etc/openstack_deploy:
 
-    cp -r /opt/osic-ref-impl/openstack_deploy /etc/openstack_deploy
+    cp -rf /opt/osic-ref-impl/openstack_deploy /etc/
 
 
 Change to /etc/openstack_deploy:

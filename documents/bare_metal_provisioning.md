@@ -196,6 +196,10 @@ PXE Boot the Servers
 
 ### Gather MAC Addresses
 
+Go to root home directory
+
+    cd /root
+
 You will need to obtain the MAC address of the network interface (e.g. p1p1) configured to PXE boot on every server. Be sure the MAC addresses are mapped to their respective hostname.
 
 You can do this by logging into the LXC container and creating a CSV file named __ilo.csv__. Use the information from your onboarding email to create the CSV.
