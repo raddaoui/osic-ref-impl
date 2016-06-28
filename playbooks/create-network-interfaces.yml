@@ -4,6 +4,8 @@
   hosts: '{{ target | default(all) }}'
   remote_user: root
   become: yes
+  vars_files:
+    - vars/vlan_network_mapping.yml 
 
   tasks:
   - name: Ensure files in interfaces.d are loaded
