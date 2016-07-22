@@ -106,7 +106,7 @@ Install the necessary LXC package:
 
     apt-get install lxc
 
-Change into root's home directory:
+Change into root's home directory
 
     cd /root
 
